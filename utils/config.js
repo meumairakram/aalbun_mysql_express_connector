@@ -1,10 +1,12 @@
 
+require('dotenv').config();
+
 const CONFIG = {
     SECRET_KEY:'',
-    DB_URL:'23.111.188.5',
-    DB_USERNAME:'hksteazq_office_tool_user',
-    DB_PASSWORD: 'ze([_4XtKTZm',
-    DB_NAME:'hksteazq_office_tools_db',
+    DB_URL:process.env.DB_URL,
+    DB_USERNAME:process.env.DB_USERNAME,
+    DB_PASSWORD: process.env.DB_PASSWORD,
+    DB_NAME:process.env.DB_NAME,
     PORT: process.env.NODE_ENV == 'production' ? process.env.PORT : 3000
 
 }
