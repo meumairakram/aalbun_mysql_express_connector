@@ -87,6 +87,9 @@ router.get('/', (req,res) => {
     if(offset > 0) {
         baseQuery += ` OFFSET ${offset}`;
     }  
+
+
+    console.log(baseQuery);
     
     connection.query(baseQuery, function(error,results,fields) {
 
