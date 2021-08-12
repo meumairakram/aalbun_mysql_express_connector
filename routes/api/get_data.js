@@ -7,12 +7,13 @@ const connection = require('../../utils/connection');
 router.get('/', (req,res) => {
 
 
-    
+
     var paramTemplate = {
         limit:0,
         offset:0,
         condition: {
-            id:''
+            id:null,
+            publication:null
         }
     };
 
@@ -38,7 +39,7 @@ router.get('/', (req,res) => {
 
     var {limit, offset, condition} = params;
 
-    var baseQuery = 'SELECT * from patents';
+    var baseQuery = 'SELECT * from grants';
 
 
     console.log(Object.entries(condition));    
@@ -50,11 +51,16 @@ router.get('/', (req,res) => {
         switch(key) {
 
             case "id":
-                baseQuery += ` AND id = ${value}`;
+                if(value) { 
+                    baseQuery += ` AND id = ${value}`;
+                }
+                
                 break;
 
-            case "patent_number":
-                baseQuery += ` AND patent_number = ${value}`;
+            case "publication":
+                if(value) { 
+                    baseQuery += ` AND publication = ${value}`;
+                }
                 break;
 
             default:
@@ -67,7 +73,7 @@ router.get('/', (req,res) => {
     }
 
 
-
+    
 
     if(limit > 0 && (offset == 0 || !offset)) {
         baseQuery += ` LIMIT ${limit}`;
@@ -81,7 +87,6 @@ router.get('/', (req,res) => {
     if(offset > 0) {
         baseQuery += ` OFFSET ${offset}`;
     }  
-
     
     connection.query(baseQuery, function(error,results,fields) {
 
