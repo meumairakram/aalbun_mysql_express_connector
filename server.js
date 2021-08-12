@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 
+const pino = require('pino-http');
 
 
 const { PORT } = require('./utils/config');
@@ -12,12 +13,13 @@ const connect = require('./utils/connection');
 
 // console.log(connect);
 app.use(express.json());
+app.use(pino);
 app.use('/api',apiServer);
 
 
 app.all('/', (req,res) => {
 
-    console.log(req.body);
+    // console.log(req.body);
 
     // connect.query('SELECT * FROM patents LIMIT 10',function(error, results,fields) {
 

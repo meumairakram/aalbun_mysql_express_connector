@@ -41,7 +41,7 @@ router.get('/', (req,res) => {
 
     var baseQuery = 'SELECT * from grants';
 
-
+    req.log.info(baseQuery);
     console.log(Object.entries(condition));    
 
     for(const [key,value] of Object.entries(condition)) {
@@ -90,7 +90,7 @@ router.get('/', (req,res) => {
 
 
     console.log(baseQuery);
-    
+
     connection.query(baseQuery, function(error,results,fields) {
 
         if(error) {
