@@ -3,12 +3,13 @@
 const express = require('express');
 const app = express();
 
-const pino = require('pino-http');
-
+const pino = require('pino-http')();
+const logger = require('pino')();
 
 const { PORT } = require('./utils/config');
 const apiServer = require('./routes/api');
 const connect = require('./utils/connection');
+
 
 
 // console.log(connect);
@@ -18,7 +19,8 @@ app.use('/api',apiServer);
 
 
 app.all('/', (req,res) => {
-
+    logger.info({class:'KINGS'});
+    
     // console.log(req.body);
 
     // connect.query('SELECT * FROM patents LIMIT 10',function(error, results,fields) {

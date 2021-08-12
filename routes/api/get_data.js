@@ -3,6 +3,7 @@ const router = express.Router();
 
 const connection = require('../../utils/connection');
 
+const logger = require('pino')();
 
 router.get('/', (req,res) => {
 
@@ -40,13 +41,14 @@ router.get('/', (req,res) => {
     var {limit, offset, condition} = params;
 
     var baseQuery = 'SELECT * from grants';
-
-    req.log.info(baseQuery);
-    console.log(Object.entries(condition));    
-
+ 
+    if(condition) {
+        baseQuery += " WHERE 1=1";
+    }
+    
     for(const [key,value] of Object.entries(condition)) {
 
-        baseQuery += " WHERE 1=1";
+        
 
         switch(key) {
 
@@ -73,8 +75,6 @@ router.get('/', (req,res) => {
     }
 
 
-    
-
     if(limit > 0 && (offset == 0 || !offset)) {
         baseQuery += ` LIMIT ${limit}`;
     }  
@@ -89,7 +89,8 @@ router.get('/', (req,res) => {
     }  
 
 
-    console.log(baseQuery);
+    
+    logger.info(baseQuery);
 
     connection.query(baseQuery, function(error,results,fields) {
 
