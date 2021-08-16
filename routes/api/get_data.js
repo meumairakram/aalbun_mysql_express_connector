@@ -24,19 +24,31 @@ router.get('/', (req,res) => {
         data:[
             {
                 "id": 0,
-                "company_name": "",
-                "email": "",
-                "gender": "",
-                "ip_address": "",
-                "patent_id": "",
-                "urgency": "",
-                "issue_date": ""
+                "application": "",
+                "kind": "",
+                "publication": "",
+                "filing_date": "",
+                "bulletin_date": "",
+                "bulletin_issue": "",
+                "publication_date": "",
+                "first_publication_date": "",
+                "intention_to_grant_date": "",
+                "applicant_name": "",
+                "applicant_street": "",
+                "applicant_city": "",
+                "applicant_country": "",
+                "agent_name": "",
+                "agent_street": "",
+                "agent_city": "",
+                "agent_country": "",
+                "filing_language": "",
+                "grant_file": 0
             }
         ]
     }
 
 
-    var params = {...paramTemplate,...req.body}; 
+    var params = {...paramTemplate,...req.params}; 
 
     var {limit, offset, condition} = params;
 
@@ -45,7 +57,7 @@ router.get('/', (req,res) => {
     if(condition) {
         baseQuery += " WHERE 1=1";
     }
-    
+
     for(const [key,value] of Object.entries(condition)) {
 
         
